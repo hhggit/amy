@@ -1,6 +1,8 @@
 #ifndef __AMY_ASIO_HPP__
 #define __AMY_ASIO_HPP__
 
+#cmakedefine USE_BOOST_ASIO @USE_BOOST_ASIO@
+
 #if !defined(USE_BOOST_ASIO) || (USE_BOOST_ASIO == 0)
 
 #include <asio/basic_io_object.hpp>
@@ -11,8 +13,8 @@
 
 #include <system_error>
 
-#define AMY_ASIO_NS ::asio
-#define AMY_SYSTEM_NS ::std
+namespace AMY_ASIO_NS = ::asio;
+namespace AMY_SYSTEM_NS = ::std;
 
 #else
 
@@ -23,8 +25,8 @@
 #include <boost/asio/placeholders.hpp>
 #include <boost/system/system_error.hpp>
 
-#define AMY_ASIO_NS ::boost::asio
-#define AMY_SYSTEM_NS ::boost::system
+namespace AMY_ASIO_NS = ::boost::asio;
+namespace AMY_SYSTEM_NS = ::boost::system;
 
 #endif
 
