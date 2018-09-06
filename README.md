@@ -1,12 +1,24 @@
-[![Build Status](https://travis-ci.org/liancheng/amy.svg?branch=master)](https://travis-ci.org/liancheng/amy)
+[![Build Status](https://travis-ci.org/hhggit/amy.svg?branch=mariadb-ci)](https://travis-ci.org/hhggit/amy)
 
 # Overview
 
 Amy is a C++11 compliant header-only **A**synchronous **My**SQL client library based on [Asio][asio]. It enables you to work with MySQL in both asynchronous and blocking ways. Amy had been tested using Clang++ 3.8 under Ubuntu 16.04, FreeBSD 11.0, and Mac OS X 10.10. It should also works under other similar UNIX-like systems with minimum efforts.
 
+**This fork**(hhggit/amy) mainly maintains Amy for [MariaDB C client library][mariadb-c-connector] and [Boost.Asio][boost-asio].
+Amy for [Asio][vanilla-asio] and [MySQL C client library][mysql-c-connector] needs a little more work to run well.
+
 # Getting Started
 
 ## Dependencies
+
+### Using MariaDB Non-blocking API
+The main difference of `amy::mariadb_connector` and `amy::mysql_connector` is that: `amy::mysql_connector` using an internal thread running mysql blocking API
+while `amy::mariadb_connector` using the original mariadb non-blocking API without internal thread.
+
+- [Boost.Asio][boost-asio]
+- [Boost][boost] 1.58 or newer for [Boost.Date_time][boost-date-time], which is used for processing MySQL date and time data types
+- [Boost][boost] 1.68 or newer for [Boost.Beast][boost-beast], `boost::beast::bind_handler` and `boost::beast::handler_ptr` is used for writing composed operations.
+- [MariaDB C client library][mariadb-c-connector] 5.5.21 or newer
 
 ### Using vanilla Asio
 
@@ -184,8 +196,10 @@ $ scons USE_BOOST_ASIO=1 test # Using Boost.Asio
 [boost-iterator]: http://www.boost.org/doc/libs/1_58_0/libs/iterator/doc/index.html
 [boost-system]: http://www.boost.org/doc/libs/1_58_0/libs/system/doc/index.html
 [boost-test]: http://www.boost.org/doc/libs/1_58_0/libs/test/doc/html/index.html
+[boost-beast]: https://www.boost.org/doc/libs/1_66_0/libs/beast/doc/html/beast/using_io/writing_composed_operations.html
 [boost]: http://www.boost.org/
 [lcov]: http://ltp.sourceforge.net/coverage/lcov.php
 [mysql-c-connector]: https://dev.mysql.com/downloads/connector/c/
+[mariadb-c-connector]: https://mariadb.com/kb/en/library/using-the-non-blocking-library/
 [scons]: http://scons.org/
 [vanilla-asio]: https://github.com/chriskohlhoff/asio
