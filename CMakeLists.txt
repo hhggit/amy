@@ -26,6 +26,13 @@ if(USE_BOOST_ASIO)
     target_link_libraries(amy INTERFACE boost_system)
 endif()
 
+find_package(Boost 1.67.0 REQUIRED COMPONENTS system unit_test_framework)
+if(Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIR})
+else()
+  message(FATAL_ERROR "Boost 1.67.0 NOT FOUND")
+endif()
+
 option(build_tests "build tests" ON)
 if(build_tests)
     enable_testing()
