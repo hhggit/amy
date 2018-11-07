@@ -22,13 +22,13 @@ class mariadb_service : public detail::service_base<mariadb_service> {
 public:
   struct implementation;
 
-  template<class Handler, typename Endpoint>
+  template <class Handler, typename Endpoint>
   class connect_handler;
-  template<class Handler>
+  template <class Handler>
   class query_handler;
-  template<class Handler>
+  template <class Handler>
   class store_result_handler;
-  template<class Handler>
+  template <class Handler>
   class query_result_handler;
 
   typedef implementation implementation_type;
@@ -70,8 +70,7 @@ public:
       AMY_SYSTEM_NS::error_code& ec);
 
   template <typename Endpoint, typename ConnectHandler>
-  BOOST_ASIO_INITFN_RESULT_TYPE(ConnectHandler, void(AMY_SYSTEM_NS::error_code))
-  async_connect(implementation_type& impl, Endpoint const& endpoint,
+  void async_connect(implementation_type& impl, Endpoint const& endpoint,
       auth_info const& auth, std::string const& database, client_flags flags,
       ConnectHandler handler);
 
@@ -79,8 +78,7 @@ public:
       std::string const& stmt, AMY_SYSTEM_NS::error_code& ec);
 
   template <typename QueryHandler>
-  BOOST_ASIO_INITFN_RESULT_TYPE(QueryHandler, void(AMY_SYSTEM_NS::error_code))
-  async_query(
+  void async_query(
       implementation_type& impl, std::string const& stmt, QueryHandler handler);
 
   bool has_more_results(implementation_type const& impl) const;
@@ -89,15 +87,12 @@ public:
       implementation_type& impl, AMY_SYSTEM_NS::error_code& ec);
 
   template <typename StoreResultHandler>
-  BOOST_ASIO_INITFN_RESULT_TYPE(
-      StoreResultHandler, void(AMY_SYSTEM_NS::error_code, amy::result_set))
-  async_store_result(implementation_type& impl, StoreResultHandler handler);
+  void async_store_result(
+      implementation_type& impl, StoreResultHandler handler);
 
   template <typename Handler>
-  BOOST_ASIO_INITFN_RESULT_TYPE(
-      Handler, void(AMY_SYSTEM_NS::error_code, amy::result_set))
-  async_query_result(implementation_type& impl,
-                     std::string const& stmt, Handler handler);
+  void async_query_result(
+      implementation_type& impl, std::string const& stmt, Handler handler);
 
   AMY_SYSTEM_NS::error_code autocommit(
       implementation_type& impl, bool mode, AMY_SYSTEM_NS::error_code& ec);

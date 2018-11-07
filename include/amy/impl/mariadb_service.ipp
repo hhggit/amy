@@ -93,8 +93,7 @@ AMY_SYSTEM_NS::error_code mariadb_service::connect(implementation_type& impl,
 }
 
 template <typename Endpoint, typename ConnectHandler>
-BOOST_ASIO_INITFN_RESULT_TYPE(ConnectHandler, void(AMY_SYSTEM_NS::error_code))
-mariadb_service::async_connect(implementation_type& impl,
+void mariadb_service::async_connect(implementation_type& impl,
     Endpoint const& endpoint, auth_info const& auth,
     std::string const& database, client_flags flags, ConnectHandler handler) {
   if (!is_open(impl)) {
@@ -136,8 +135,7 @@ inline AMY_SYSTEM_NS::error_code mariadb_service::query(
 }
 
 template <typename QueryHandler>
-BOOST_ASIO_INITFN_RESULT_TYPE(QueryHandler, void(AMY_SYSTEM_NS::error_code))
-mariadb_service::async_query(
+void mariadb_service::async_query(
     implementation_type& impl, std::string const& stmt, QueryHandler handler) {
   if (!is_open(impl)) {
     AMY_ASIO_NS::post(this->get_io_service().get_executor(),
@@ -199,9 +197,7 @@ inline result_set mariadb_service::store_result(
 }
 
 template <typename StoreResultHandler>
-BOOST_ASIO_INITFN_RESULT_TYPE(
-    StoreResultHandler, void(AMY_SYSTEM_NS::error_code, amy::result_set))
-mariadb_service::async_store_result(
+void mariadb_service::async_store_result(
     implementation_type& impl, StoreResultHandler handler) {
   if (!is_open(impl)) {
     AMY_ASIO_NS::post(this->get_io_service().get_executor(),
@@ -215,9 +211,7 @@ mariadb_service::async_store_result(
 }
 
 template <typename Handler>
-BOOST_ASIO_INITFN_RESULT_TYPE(
-    Handler, void(AMY_SYSTEM_NS::error_code, amy::result_set))
-mariadb_service::async_query_result(
+void mariadb_service::async_query_result(
     implementation_type& impl, std::string const& stmt, Handler handler) {
   if (!is_open(impl)) {
     AMY_ASIO_NS::post(this->get_io_service().get_executor(),
