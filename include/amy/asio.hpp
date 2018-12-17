@@ -1,7 +1,7 @@
 #ifndef __AMY_ASIO_HPP__
 #define __AMY_ASIO_HPP__
 
-#if !defined(USE_BOOST_ASIO) || (USE_BOOST_ASIO == 0)
+#if !defined(AMY_USE_BOOST_ASIO) || (AMY_USE_BOOST_ASIO == 0)
 
 #include <asio/basic_io_object.hpp>
 #include <asio/io_service.hpp>

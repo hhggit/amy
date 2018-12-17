@@ -7,21 +7,21 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 add_library(amy INTERFACE)
 target_include_directories(amy INTERFACE include)
 
-option(USE_BOOST_ASIO "USE_BOOST_ASIO" ON)
-if(USE_BOOST_ASIO)
-    set(USE_BOOST_ASIO "1")
+option(AMY_USE_BOOST_ASIO "AMY_USE_BOOST_ASIO" ON)
+if(AMY_USE_BOOST_ASIO)
+    set(AMY_USE_BOOST_ASIO "1")
 endif()
 
-option(USE_MARIADB "USE_MARIADB" ON)
-if(USE_MARIADB)
-    set(MYSQL_LIB mariadbclient)
+option(AMY_USE_MARIADB "AMY_USE_MARIADB" ON)
+if(AMY_USE_MARIADB)
+    set(AMY_MYSQL_LIB mariadbclient)
 else()
-    set(MYSQL_LIB mysqlclient)
+    set(AMY_MYSQL_LIB mysqlclient)
 endif()
 
-target_compile_definitions(amy INTERFACE USE_BOOST_ASIO=${USE_BOOST_ASIO})
-target_link_libraries(amy INTERFACE ${MYSQL_LIB} pthread)
-if(USE_BOOST_ASIO)
+target_compile_definitions(amy INTERFACE AMY_USE_BOOST_ASIO=${AMY_USE_BOOST_ASIO})
+target_link_libraries(amy INTERFACE ${AMY_MYSQL_LIB} pthread)
+if(AMY_USE_BOOST_ASIO)
     target_link_libraries(amy INTERFACE boost_system)
 endif()
 
@@ -35,7 +35,7 @@ if(build_tests)
         test/connector_test.cpp
         test/init.sql
         test/main.cpp)
-    if(USE_MARIADB)
+    if(AMY_USE_MARIADB)
         set(test_src ${test_src} test/mariadb_async_connect_test.cpp)
     endif()
     add_executable(tests ${test_src})
@@ -55,7 +55,7 @@ if(build_examples)
         blocking_connect
         async_connect
     )
-    if(USE_MARIADB)
+    if(AMY_USE_MARIADB)
         set(examples
             ${examples}
             mariadb_async_multi_query

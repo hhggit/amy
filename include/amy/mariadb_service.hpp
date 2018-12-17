@@ -9,7 +9,7 @@
 #include <amy/endpoint_traits.hpp>
 #include <amy/result_set.hpp>
 
-#if !defined(USE_BOOST_ASIO) || (USE_BOOST_ASIO == 0)
+#if !defined(AMY_USE_BOOST_ASIO) || (AMY_USE_BOOST_ASIO == 0)
 #include <asio/posix/stream_descriptor.hpp>
 #else
 #include <boost/asio/posix/stream_descriptor.hpp>

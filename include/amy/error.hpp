@@ -459,7 +459,7 @@ inline AMY_SYSTEM_NS::error_category const& get_misc_category() {
 } // namespace error
 } // namespace amy
 
-#if !defined(USE_BOOST_ASIO) || (USE_BOOST_ASIO == 0)
+#if !defined(AMY_USE_BOOST_ASIO) || (AMY_USE_BOOST_ASIO == 0)
 namespace std {
 #else
 namespace boost {
@@ -478,7 +478,7 @@ struct is_error_code_enum<amy::error::misc_errors> {
 
 }; // struct is_error_code_enum
 
-#if !defined(USE_BOOST_ASIO) || (USE_BOOST_ASIO == 0)
+#if !defined(AMY_USE_BOOST_ASIO) || (AMY_USE_BOOST_ASIO == 0)
 } // namespace std
 #else
 } // namespace system
