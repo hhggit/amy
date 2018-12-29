@@ -333,15 +333,16 @@ void async_wait_mysql(int& status, T1& p, T2& self) {
   if (ev.native_handle() != -1) ev.cancel();
 
   using AMY_ASIO_NS::posix::descriptor_base;
-  using namespace std::placeholders;
   if (status & ops::wait_type::read) {
     ev.async_wait(descriptor_base::wait_read,
-        boost::beast::bind_handler(std::move(self), _1, ops::wait_type::read));
+        boost::beast::bind_handler(std::move(self),
+            AMY_ASIO_NS::placeholders::error(), ops::wait_type::read));
     return;
   }
   if (status & ops::wait_type::write) {
     ev.async_wait(descriptor_base::wait_write,
-        boost::beast::bind_handler(std::move(self), _1, ops::wait_type::write));
+        boost::beast::bind_handler(std::move(self),
+            AMY_ASIO_NS::placeholders::error(), ops::wait_type::write));
     return;
   }
   if (status & ops::wait_type::timeout) {
@@ -353,8 +354,8 @@ void async_wait_mysql(int& status, T1& p, T2& self) {
 
     auto& timer = *impl.timer_;
     timer.expires_after(timeout);
-    timer.async_wait(boost::beast::bind_handler(
-        std::move(self), _1, ops::wait_type::timeout));
+    timer.async_wait(boost::beast::bind_handler(std::move(self),
+        AMY_ASIO_NS::placeholders::error(), ops::wait_type::timeout));
     return;
   }
 };
