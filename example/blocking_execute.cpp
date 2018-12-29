@@ -12,8 +12,8 @@ global_options opts;
 int main(int argc, char* argv[]) try {
     parse_command_line_options(argc, argv);
 
-    AMY_ASIO_NS::io_service io_service;
-    amy::connector connector(io_service);
+    AMY_ASIO_NS::io_context io_context;
+    amy::connector connector(io_context);
 
     connector.connect(opts.tcp_endpoint(),
                       opts.auth_info(),

@@ -18,9 +18,9 @@ BOOST_AUTO_TEST_CASE(
     should_maria_async_connect_to_localhost_with_given_auth_info) {
   maria_async_connect_test fixture;
 
-  AMY_ASIO_NS::io_service io_service;
+  AMY_ASIO_NS::io_context io_context;
 
-  amy::mariadb_connector c(io_service);
+  amy::mariadb_connector c(io_context);
 
   c.async_connect(amy::null_endpoint(), amy::auth_info("amy", "amy"),
       "test_amy", amy::default_flags,
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(
 
   BOOST_CHECK(!fixture.handler_invoked);
 
-  io_service.run();
+  io_context.run();
 
   BOOST_CHECK(fixture.handler_invoked);
 }

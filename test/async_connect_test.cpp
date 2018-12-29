@@ -19,8 +19,8 @@ struct async_connect_test {
 BOOST_AUTO_TEST_CASE(should_async_connect_to_localhost_with_given_auth_info) {
     async_connect_test fixture;
 
-    AMY_ASIO_NS::io_service io_service;
-    amy::connector c(io_service);
+    AMY_ASIO_NS::io_context io_context;
+    amy::connector c(io_context);
 
     c.async_connect(amy::null_endpoint(),
                     amy::auth_info("amy", "amy"),
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(should_async_connect_to_localhost_with_given_auth_info) {
                               &fixture,
                               amy::placeholders::error));
 
-    io_service.run();
+    io_context.run();
 
     BOOST_CHECK(fixture.handler_invoked);
 }

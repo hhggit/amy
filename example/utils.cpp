@@ -11,7 +11,7 @@ AMY_ASIO_NS::ip::tcp::endpoint global_options::tcp_endpoint() const {
 
     return host.empty() ?
         tcp::endpoint(address_v4::loopback(), port) :
-        tcp::endpoint(address::from_string(host), port);
+        tcp::endpoint(make_address(host), port);
 }
 
 amy::auth_info global_options::auth_info() const {

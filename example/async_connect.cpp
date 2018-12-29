@@ -18,8 +18,8 @@ void handle_connect(AMY_SYSTEM_NS::error_code const& ec,
 int main(int argc, char* argv[]) {
     parse_command_line_options(argc, argv);
 
-    AMY_ASIO_NS::io_service io_service;
-    amy::connector connector(io_service);
+    AMY_ASIO_NS::io_context io_context;
+    amy::connector connector(io_context);
 
     connector.async_connect(opts.tcp_endpoint(),
                             opts.auth_info(),
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
                                       std::ref(connector)));
 
     try {
-        io_service.run();
+        io_context.run();
     } catch (AMY_SYSTEM_NS::system_error const& e) {
         report_system_error(e);
     } catch (std::exception const& e) {
